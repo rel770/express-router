@@ -23,18 +23,22 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  const userId = parseInt(req.params.id, 10);
-  const userIndex = users.findIndex((u) => u.id === userId);
-  if (userIndex === -1) {
-    return res.status(404).json({ error: "User not found" });
-  }
-  const updatedUser = { ...users[userIndex], name: req.body.name };
-  users[userIndex] = updatedUser;
-  res.json(updatedUser);
+  const userId = parseInt(req.params.id);
+  const { name } = req.body;
+  // Validate body.name
+  if (!name || typeof name !== "string") return res.status(400).json({ error: "Invalid name" });
+
+  for (const user of users)
+    if (user.id === userId) {
+      user.name = name;
+      return res.json(user);
+    }
+
+  return res.status(404).json({ error: "User not found" });
 });
 
 router.delete("/:id", (req, res) => {
-  const userId = parseInt(req.params.id, 10);
+  const userId = parseInt(req.params.id);
   const userIndex = users.findIndex((u) => u.id === userId);
   if (userIndex === -1) {
     return res.status(404).json({ error: "User not found" });
