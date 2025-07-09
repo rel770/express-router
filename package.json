@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/rel770/express-router/issues"
   },
-  "homepage": "https://github.com/rel770/express-router#readme"
+  "homepage": "https://github.com/rel770/express-router#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
