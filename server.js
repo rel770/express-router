@@ -1,10 +1,10 @@
 import express from 'express';
+import greetRouter from './routes/greet.js';
+
 const app = express();
 const PORT = 3000;
 
-app.get('/greet', (req, res) => {
-  res.json({ msg: 'Hello from /greet!' });
-});
+app.use(greetRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on http://localhost:${PORT}`);
