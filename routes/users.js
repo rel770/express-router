@@ -22,4 +22,15 @@ router.post("/", (req, res) => {
   res.status(201).json(newUser);
 });
 
+router.put("/:id", (req, res) => {
+  const userId = parseInt(req.params.id, 10);
+  const userIndex = users.findIndex((u) => u.id === userId);
+  if (userIndex === -1) {
+    return res.status(404).json({ error: "User not found" });
+  }
+  const updatedUser = { ...users[userIndex], name: req.body.name };
+  users[userIndex] = updatedUser;
+  res.json(updatedUser);
+});
+
 export default router;
